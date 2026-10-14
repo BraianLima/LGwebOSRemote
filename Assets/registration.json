@@ -31,7 +31,7 @@
     ],
     "signatures": [
       {
-        "signature": "ey{place_holder}",
+        "signature": "eyJhbGdvcml0aG0iOiJSU0EtU0hBMjU2Iiwia2V5SWQiOiJ0ZXN0LXNpZ25pbmctY2VydCIsInNpZ25hdHVyZVZlcnNpb24iOjF9.hrVRgjCwXVvE2OOSpDZ58hR+59aFNwYDyjQgKk3auukd7pcegmE2CzPCa0bJ0ZsRAcKkCTJrWo5iDzNhMBWRyaMOv5zWSrthlf7G128qvIlpMT0YNY+n/FaOHE73uLrS/g7swl3/qH/BGFG2Hu4RlL48eb3lLKqTt2xKHdCs6Cd4RMfJPYnzgvI4BNrFUKsjkcu+WD4OO2A27Pq1n50cMchmcaXadJhGrOqH5YmHdOCj5NSHzJYrsW0HPlpuAx/ECMeIZYDh6RMqaFM2DXzdKX9NmmyqzJ3o/0lkk/N97gfVRLW5hA29yeAwaCViZNCP8iC9aO0q9fQojoa7NQnAtw==",
         "signatureVersion": 1
       }
     ],
@@ -41,7 +41,7 @@
       "localizedAppNames": {
         "": "LG Remote App",
         "ko-KR": "\ub9ac\ubaa8\ucee8 \uc571",
-        "zxx-XX": "\u041b\u0413{place_holder}"
+        "zxx-XX": "\u041b\u0413 R\u044d\u043cot\u044d A\u041f\u041f"
       },
       "localizedVendorNames": {
         "": "LG Electronics"
@@ -64,7 +64,7 @@
         "READ_LGE_TV_INPUT_EVENTS",
         "READ_TV_CURRENT_TIME"
       ],
-      "serial": "{place_holder}",
+      "serial": "2f930e2d2cfe083771f68e4fe7bb07",
       "vendorId": "com.lge"
     }
   },
