@@ -142,7 +142,7 @@
                             android:id="@+id/txt_power_card_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Controle de Energia"
+                            android:text="@string/power_card_title_disconnected"
                             android:textColor="@color/textWhite"
                             android:textStyle="bold"
                             android:textSize="13sp" />
@@ -151,7 +151,7 @@
                             android:id="@+id/txt_power_card_sub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toque para desligar a TV"
+                            android:text="@string/power_card_sub_disconnected"
                             android:textColor="@color/textMuted"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -160,7 +160,7 @@
                         android:id="@+id/btn_wake_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
-                        android:text="DESLIGAR TV"
+                        android:text="@string/btn_reconnect"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/textWhite"
@@ -197,7 +197,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:text="HOME"
+                        android:text="@string/btn_home"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/textWhite"
@@ -210,7 +210,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:text="VOLTAR"
+                        android:text="@string/btn_back"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/textWhite"
@@ -223,7 +223,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:text="MENU"
+                        android:text="@string/btn_menu"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/textWhite"
@@ -236,7 +236,7 @@
                         android:layout_height="44dp"
                         android:layout_weight="1"
                         android:layout_margin="3dp"
-                        android:text="SAIR"
+                        android:text="@string/btn_exit"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/textWhite"
@@ -668,7 +668,7 @@
                     android:id="@+id/btn_mute"
                     android:layout_width="100dp"
                     android:layout_height="68dp"
-                    android:text="MUDO"
+                    android:text="@string/btn_mute"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/textWhite"
@@ -703,7 +703,7 @@
                 android:id="@+id/edit_search_apps"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="Pesquisar aplicativos instalados..."
+                android:hint="@string/apps_search_hint"
                 android:textColor="@color/textWhite"
                 android:textColorHint="@color/textMuted"
                 android:background="@drawable/shape_input_box"
@@ -735,7 +735,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entradas Externas (HDMI / TV)"
+                android:text="@string/inputs_title"
                 android:textColor="@color/textWhite"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -765,14 +765,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ajustes de Imagem da TV"
-                    android:textColor="@color/textWhite"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/picture_title"
+                android:textColor="@color/textWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
                 <!-- Backlight -->
                 <TextView
@@ -846,7 +846,7 @@
                     android:id="@+id/btn_apply_picture"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Aplicar Ajustes na TV"
+                    android:text="@string/btn_apply_picture"
                     android:textStyle="bold"
                     android:textColor="@color/textWhite"
                     android:background="@drawable/shape_rounded_button"
@@ -869,10 +869,72 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Language Selection -->
+                <TextView
+                    android:id="@+id/txt_settings_lang_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_lang_title"
+                    android:textColor="@color/textWhite"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:id="@+id/btn_lang_pt"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="🇧🇷 Português"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <Button
+                        android:id="@+id/btn_lang_en"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="🇺🇸 English"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <Button
+                        android:id="@+id/btn_lang_es"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="🇪🇸 Español"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/surfaceDark"
+                    android:layout_marginBottom="16dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descoberta e Configuração da TV"
+                    android:text="@string/settings_discovery_title"
                     android:textColor="@color/textWhite"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -882,7 +944,7 @@
                     android:id="@+id/btn_discover"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Buscar TVs LG na Rede Wi-Fi"
+                    android:text="@string/btn_discover"
                     android:textStyle="bold"
                     android:textColor="@color/textWhite"
                     android:background="@drawable/shape_rounded_button"
@@ -899,7 +961,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Configuração Manual"
+                    android:text="@string/settings_manual_title"
                     android:textColor="@color/textWhite"
                     android:textStyle="bold"
                     android:textSize="14sp"
@@ -909,7 +971,7 @@
                     android:id="@+id/edit_ip"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:hint="IPv4 da TV (ex: 192.168.1.100)"
+                    android:hint="@string/hint_tv_ip"
                     android:textColor="@color/textWhite"
                     android:textColorHint="@color/textMuted"
                     android:background="@drawable/shape_input_box"
@@ -922,7 +984,7 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:hint="Nome de Exibição"
+                    android:hint="@string/hint_tv_name"
                     android:textColor="@color/textWhite"
                     android:textColorHint="@color/textMuted"
                     android:background="@drawable/shape_input_box"
@@ -941,7 +1003,7 @@
                     android:id="@+id/btn_save_connect"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="Salvar e Conectar"
+                    android:text="@string/btn_save_connect"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/textWhite"
@@ -954,7 +1016,7 @@
                     android:id="@+id/btn_forget"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:text="Reparear TV (Esquecer Chave)"
+                    android:text="@string/btn_forget"
                     android:textStyle="bold"
                     android:textColor="#FF5252"
                     android:background="@drawable/shape_rounded_button"

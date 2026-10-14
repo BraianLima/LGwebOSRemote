@@ -78,12 +78,37 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
     private string _currentModel = "webOS";
     private string _currentMac = "";
 
+    protected override void AttachBaseContext(Context? @base)
+    {
+        if (@base != null)
+        {
+            var prefs = @base.GetSharedPreferences("lgwebos_prefs", FileCreationMode.Private);
+            var lang = prefs?.GetString("app_language", "pt") ?? "pt";
+            var locale = new Java.Util.Locale(lang);
+            Java.Util.Locale.Default = locale;
+
+            var config = new Android.Content.Res.Configuration(@base.Resources?.Configuration);
+            config.SetLocale(locale);
+            var localizedContext = @base.CreateConfigurationContext(config);
+            base.AttachBaseContext(localizedContext);
+            return;
+        }
+        base.AttachBaseContext(@base);
+    }
+
     protected override void OnCreate(Bundle? savedInstanceState)
     {
+        _prefs = GetSharedPreferences("lgwebos_prefs", FileCreationMode.Private);
+        var lang = _prefs?.GetString("app_language", "pt") ?? "pt";
+        var locale = new Java.Util.Locale(lang);
+        Java.Util.Locale.Default = locale;
+        var config = new Android.Content.Res.Configuration(Resources?.Configuration);
+        config.SetLocale(locale);
+        Resources?.UpdateConfiguration(config, Resources.DisplayMetrics);
+
         base.OnCreate(savedInstanceState);
         SetContentView(Resource.Layout.activity_main);
 
-        _prefs = GetSharedPreferences("lgwebos_prefs", FileCreationMode.Private);
         _currentHost = _prefs?.GetString("tv_host", "") ?? "";
         _currentName = _prefs?.GetString("tv_name", "LG webOS TV") ?? "LG webOS TV";
         _currentModel = _prefs?.GetString("tv_model", "webOS") ?? "webOS";
@@ -129,12 +154,12 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
             if (_client?.IsConnected == true)
             {
                 _ = _client.TurnOffAsync();
-                ShowBanner("Desligando a TV...");
-                UpdateConnectionStatus(false, "Desconectado");
+                ShowBanner(GetString(Resource.String.banner_turning_off));
+                UpdateConnectionStatus(false, GetString(Resource.String.status_disconnected));
             }
             else
             {
-                ShowBanner("Tentando conectar à TV...");
+                ShowBanner(GetString(Resource.String.banner_connecting));
                 ConnectToTV();
             }
         };
@@ -408,16 +433,32 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         _btnSaveConnect = FindViewById<Button>(Resource.Id.btn_save_connect);
         _btnForget = FindViewById<Button>(Resource.Id.btn_forget);
 
+        var btnLangPt = FindViewById<Button>(Resource.Id.btn_lang_pt);
+        var btnLangEn = FindViewById<Button>(Resource.Id.btn_lang_en);
+        var btnLangEs = FindViewById<Button>(Resource.Id.btn_lang_es);
+
+        var currentLang = _prefs?.GetString("app_language", "pt") ?? "pt";
+        var primaryColor = Color.ParseColor("#A50034");
+        var cardColor = Color.ParseColor("#1E1B24");
+
+        if (btnLangPt != null) btnLangPt.SetBackgroundColor(currentLang == "pt" ? primaryColor : cardColor);
+        if (btnLangEn != null) btnLangEn.SetBackgroundColor(currentLang == "en" ? primaryColor : cardColor);
+        if (btnLangEs != null) btnLangEs.SetBackgroundColor(currentLang == "es" ? primaryColor : cardColor);
+
+        if (btnLangPt != null) btnLangPt.Click += (s, e) => SetAppLanguage("pt");
+        if (btnLangEn != null) btnLangEn.Click += (s, e) => SetAppLanguage("en");
+        if (btnLangEs != null) btnLangEs.Click += (s, e) => SetAppLanguage("es");
+
         _editIp!.Text = _currentHost;
         _editName!.Text = _currentName;
 
         _btnDiscover!.Click += async (s, e) =>
         {
-            ShowBanner("Procurando TVs LG webOS na rede Wi-Fi...");
+            ShowBanner(GetString(Resource.String.btn_discover) + "...");
             _discoveredDevices = await TVDiscovery.SearchAsync(this);
             var titles = _discoveredDevices.Select(d => $"{d.Name} ({d.Host})").ToList();
             _listDevices!.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, titles);
-            ShowBanner(_discoveredDevices.Count > 0 ? $"Encontrada(s) {_discoveredDevices.Count} TV(s) LG!" : "Nenhuma TV encontrada automaticamente. Digite o IP manualmente.");
+            ShowBanner(_discoveredDevices.Count > 0 ? $"{_discoveredDevices.Count} TV(s) LG!" : GetString(Resource.String.dialog_discovery_none));
         };
 
         _listDevices!.ItemClick += (s, e) =>
@@ -435,6 +476,11 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         _btnSaveConnect!.Click += (s, e) =>
         {
             string host = _editIp.Text?.Trim() ?? "";
+            if (string.IsNullOrEmpty(host))
+            {
+                ShowBanner(GetString(Resource.String.dialog_ip_required));
+                return;
+            }
             string name = _editName.Text?.Trim() ?? "LG webOS TV";
             SaveConfig(host, name, _currentModel, "");
             ConnectToTV();
@@ -444,9 +490,23 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         {
             _client?.Disconnect();
             _prefs?.Edit()?.Remove($"client_key_{_currentHost}")?.Apply();
-            ShowBanner("Chave removida. Ao reconectar, aceite o aviso na TV para autorizar permissões de teclado.");
-            UpdateConnectionStatus(false, "Desconectado");
+            ShowBanner(GetString(Resource.String.dialog_key_forgotten));
+            UpdateConnectionStatus(false, GetString(Resource.String.status_disconnected));
         };
+    }
+
+    private void SetAppLanguage(string lang)
+    {
+        _prefs?.Edit()?.PutString("app_language", lang)?.Apply();
+
+        var locale = new Java.Util.Locale(lang);
+        Java.Util.Locale.Default = locale;
+
+        var config = new Android.Content.Res.Configuration(Resources?.Configuration);
+        config.SetLocale(locale);
+        Resources?.UpdateConfiguration(config, Resources.DisplayMetrics);
+
+        Recreate();
     }
 
     private void SaveConfig(string host, string name, string model, string mac)
@@ -494,7 +554,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         if (string.IsNullOrEmpty(_currentHost)) return;
 
         _client?.Dispose();
-        UpdateConnectionStatus(false, "Conectando...");
+        UpdateConnectionStatus(false, GetString(Resource.String.banner_connecting));
         string? storedKey = _prefs?.GetString($"client_key_{_currentHost}", null);
         _client = new WebOSClient(this, _currentHost, storedKey, this);
         _ = _client.ConnectAsync();
@@ -505,12 +565,12 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         if (_client?.IsConnected == true)
         {
             _ = _client.TurnOffAsync();
-            ShowBanner("Desligando a TV...");
-            UpdateConnectionStatus(false, "Desconectado");
+            ShowBanner(GetString(Resource.String.banner_turning_off));
+            UpdateConnectionStatus(false, GetString(Resource.String.status_disconnected));
         }
         else
         {
-            ShowBanner("Tentando conectar à TV...");
+            ShowBanner(GetString(Resource.String.banner_connecting));
             ConnectToTV();
         }
     }
@@ -530,7 +590,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
             }
 
             _allInputs = await _client.GetInputsAsync();
-            var inputLabels = _allInputs.Select(i => $"{i.Label} {(i.Connected ? "• Conectado" : "")}").ToList();
+            var inputLabels = _allInputs.Select(i => $"{i.Label} {(i.Connected ? GetString(Resource.String.input_connected) : "")}").ToList();
             _inputsAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, inputLabels);
             _listInputs!.Adapter = _inputsAdapter;
 
@@ -542,7 +602,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         }
         catch (Exception ex)
         {
-            ShowBanner($"Erro ao atualizar dados: {ex.Message}");
+            ShowBanner($"Error: {ex.Message}");
         }
     }
 
@@ -566,15 +626,15 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
             if (connected)
             {
                 _imgStatusDot?.SetImageResource(Resource.Drawable.shape_dot_green);
-                if (txtCardTitle != null) txtCardTitle.Text = "TV Conectada";
-                if (txtCardSub != null) txtCardSub.Text = "Toque para desligar a TV";
-                if (_btnWakeTv != null) _btnWakeTv.Text = "DESLIGAR TV";
+                if (txtCardTitle != null) txtCardTitle.Text = GetString(Resource.String.power_card_title_connected);
+                if (txtCardSub != null) txtCardSub.Text = GetString(Resource.String.power_card_sub_connected);
+                if (_btnWakeTv != null) _btnWakeTv.Text = GetString(Resource.String.btn_turn_off);
                 if (_cardWakeTv != null) _cardWakeTv.Visibility = ViewStates.Visible;
                 if (_txtCurrentApp != null) _txtCurrentApp.Visibility = ViewStates.Visible;
             }
             else
             {
-                if (text.Contains("Ligando") || text.Contains("Conectando") || text.Contains("Pareando"))
+                if (text.Contains("Ligando") || text.Contains("Conectando") || text.Contains("Connecting") || text.Contains("Pareando") || text.Contains("Pairing") || text.Contains("Emparejando") || text.Contains("Conectando"))
                 {
                     _imgStatusDot?.SetImageResource(Resource.Drawable.shape_dot_amber);
                 }
@@ -582,9 +642,9 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
                 {
                     _imgStatusDot?.SetImageResource(Resource.Drawable.shape_dot_red);
                 }
-                if (txtCardTitle != null) txtCardTitle.Text = "TV Desconectada / Desligada";
-                if (txtCardSub != null) txtCardSub.Text = "Ligue a TV pelo controle físico";
-                if (_btnWakeTv != null) _btnWakeTv.Text = "RECONECTAR";
+                if (txtCardTitle != null) txtCardTitle.Text = GetString(Resource.String.power_card_title_disconnected);
+                if (txtCardSub != null) txtCardSub.Text = GetString(Resource.String.power_card_sub_disconnected);
+                if (_btnWakeTv != null) _btnWakeTv.Text = GetString(Resource.String.btn_reconnect);
                 if (_cardWakeTv != null) _cardWakeTv.Visibility = ViewStates.Visible;
                 if (_txtCurrentApp != null) _txtCurrentApp.Visibility = ViewStates.Gone;
             }
@@ -605,14 +665,14 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
     {
         RunOnUiThread(() =>
         {
-            UpdateConnectionStatus(true, "Conectado");
-            ShowBanner("Conectado à TV LG webOS!");
+            UpdateConnectionStatus(true, GetString(Resource.String.status_connected));
+            ShowBanner(GetString(Resource.String.banner_connected));
             RefreshTVData();
 
             // Success popup
             var dialog = new AndroidX.AppCompat.App.AlertDialog.Builder(this)
-                .SetTitle("Conectado com Sucesso! 🎉")
-                .SetMessage("O seu celular conectou à TV LG com sucesso!\nO controle remoto já está ativo e pronto para uso.")
+                .SetTitle(GetString(Resource.String.dialog_success_title) ?? "")
+                .SetMessage(GetString(Resource.String.dialog_success_msg) ?? "")
                 .SetPositiveButton("OK", (s, e) => { })
                 .Create();
             dialog?.Show();
@@ -623,8 +683,8 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
     {
         RunOnUiThread(() =>
         {
-            UpdateConnectionStatus(false, "Pareando...");
-            ShowBanner("Aceite a permissão na tela da sua TV!");
+            UpdateConnectionStatus(false, GetString(Resource.String.status_pairing));
+            ShowBanner(GetString(Resource.String.banner_accept_pairing));
         });
     }
 
@@ -637,7 +697,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
     {
         RunOnUiThread(() =>
         {
-            UpdateConnectionStatus(false, "Desconectado");
+            UpdateConnectionStatus(false, GetString(Resource.String.status_disconnected));
         });
     }
 
@@ -647,10 +707,10 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         {
             _currentVolume = volume;
             _isMuted = muted;
-            _txtVolumeVal!.Text = muted ? "MUDO" : $"{volume}";
-            _txtAudioStatus!.Text = muted ? "Áudio mutado" : "Volume do Alto-falante";
+            _txtVolumeVal!.Text = muted ? GetString(Resource.String.btn_mute) : $"{volume}";
+            _txtAudioStatus!.Text = muted ? GetString(Resource.String.audio_muted) : GetString(Resource.String.audio_speaker_vol);
             _seekVolume!.Progress = volume;
-            _btnMute!.Text = muted ? "ATIVAR SOM" : "MUDO";
+            _btnMute!.Text = muted ? GetString(Resource.String.btn_unmute) : GetString(Resource.String.btn_mute);
         });
     }
 
@@ -659,7 +719,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         RunOnUiThread(() =>
         {
             string displayTitle = !string.IsNullOrEmpty(title) ? title : _allApps.FirstOrDefault(a => a.Id == appId)?.Title ?? appId;
-            _txtCurrentApp!.Text = $"App Ativo: {displayTitle}";
+            _txtCurrentApp!.Text = $"{GetString(Resource.String.app_active_prefix)}{displayTitle}";
         });
     }
 
@@ -669,7 +729,7 @@ public class MainActivity : AppCompatActivity, WebOSClient.IListener
         {
             if (_client?.IsConnected == true)
             {
-                UpdateConnectionStatus(true, ready ? "Conectado (Controle Pronto)" : "Conectado");
+                UpdateConnectionStatus(true, ready ? GetString(Resource.String.status_ready) : GetString(Resource.String.status_connected));
             }
         });
     }

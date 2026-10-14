@@ -3,25 +3,25 @@
     <item
         android:id="@+id/nav_remote"
         android:icon="@drawable/ic_nav_remote"
-        android:title="Controle" />
+        android:title="@string/nav_remote" />
     <item
         android:id="@+id/nav_audio"
         android:icon="@drawable/ic_nav_audio"
-        android:title="Áudio" />
+        android:title="@string/nav_audio" />
     <item
         android:id="@+id/nav_apps"
         android:icon="@drawable/ic_nav_apps"
-        android:title="Apps" />
+        android:title="@string/nav_apps" />
     <item
         android:id="@+id/nav_inputs"
         android:icon="@drawable/ic_nav_inputs"
-        android:title="Entradas" />
+        android:title="@string/nav_inputs" />
     <item
         android:id="@+id/nav_picture"
         android:icon="@drawable/ic_nav_picture"
-        android:title="Imagem" />
+        android:title="@string/nav_picture" />
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_nav_settings"
-        android:title="Ajustes" />
+        android:title="@string/nav_settings" />
 </menu>

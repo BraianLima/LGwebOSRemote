@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LG webOS Remote</string>
+    <string name="app_text">LG webOS Remote</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_remote">Remote</string>
+    <string name="nav_audio">Audio</string>
+    <string name="nav_apps">Apps</string>
+    <string name="nav_inputs">Inputs</string>
+    <string name="nav_picture">Picture</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Power & Status -->
+    <string name="power_card_title_connected">TV Connected</string>
+    <string name="power_card_title_disconnected">TV Disconnected / Turned Off</string>
+    <string name="power_card_sub_connected">Tap to turn off TV</string>
+    <string name="power_card_sub_disconnected">Turn on TV via physical remote</string>
+    <string name="btn_turn_off">TURN OFF TV</string>
+    <string name="btn_reconnect">RECONNECT</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_ready">Connected (Remote Ready)</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_pairing">Pairing...</string>
+    <string name="banner_turning_off">Turning off TV...</string>
+    <string name="banner_connecting">Trying to connect to TV...</string>
+    <string name="banner_connected">Connected to LG webOS TV!</string>
+    <string name="banner_accept_pairing">Accept the permission prompt on your TV!</string>
+
+    <!-- Navigation Buttons -->
+    <string name="btn_home">HOME</string>
+    <string name="btn_back">BACK</string>
+    <string name="btn_menu">MENU</string>
+    <string name="btn_exit">EXIT</string>
+
+    <!-- Audio -->
+    <string name="audio_title">TV Audio Control</string>
+    <string name="audio_muted">Audio muted</string>
+    <string name="audio_speaker_vol">Speaker Volume</string>
+    <string name="btn_mute">MUTE</string>
+    <string name="btn_unmute">UNMUTE</string>
+
+    <!-- Apps -->
+    <string name="apps_search_hint">Search installed apps...</string>
+    <string name="app_active_prefix">Active App: </string>
+
+    <!-- Inputs -->
+    <string name="inputs_title">External Inputs (HDMI / TV)</string>
+    <string name="input_connected">• Connected</string>
+
+    <!-- Picture -->
+    <string name="picture_title">TV Picture Settings</string>
+    <string name="lbl_backlight">Backlight</string>
+    <string name="lbl_brightness">Brightness</string>
+    <string name="lbl_contrast">Contrast</string>
+    <string name="lbl_color">Color</string>
+    <string name="btn_apply_picture">Apply Picture Settings</string>
+
+    <!-- Settings -->
+    <string name="settings_lang_title">App Language</string>
+    <string name="settings_discovery_title">TV Discovery &amp; Setup</string>
+    <string name="btn_discover">Search LG TVs on Wi-Fi</string>
+    <string name="settings_manual_title">Manual Configuration</string>
+    <string name="hint_tv_ip">TV IPv4 (e.g. 192.168.1.100)</string>
+    <string name="hint_tv_name">Display Name</string>
+    <string name="btn_save_connect">Save and Connect</string>
+    <string name="btn_forget">Re-pair TV (Forget Key)</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_success_title">Successfully Connected! 🎉</string>
+    <string name="dialog_success_msg">Your smartphone connected to the LG TV successfully!\nThe remote control is ready to use.</string>
+    <string name="dialog_ip_required">Please enter the TV\'s IPv4 address.</string>
+    <string name="dialog_discovery_none">No LG TVs found on the local network.</string>
+    <string name="dialog_key_forgotten">Pairing key forgotten. Reconnect to pair again with the TV.</string>
+</resources>
