@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgDark">
+
+    <!-- Top App Bar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/surfaceDark"
+        android:elevation="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/img_app_logo"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@drawable/app_logo"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Logo" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LG webOS Remote"
+                    android:textColor="@color/textWhite"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="2dp">
+
+                    <ImageView
+                        android:id="@+id/img_status_dot"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:src="@drawable/shape_dot_red"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Desconectado"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Banner Notification -->
+    <TextView
+        android:id="@+id/txt_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2E1E28"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <!-- Container for Tabs -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: REMOTE CONTROLLER                        -->
+        <!-- ============================================== -->
+        <ScrollView
+            android:id="@+id/tab_remote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="16dp"
+                android:gravity="center_horizontal">
+
+                <!-- Desligar TV Card -->
+                <LinearLayout
+                    android:id="@+id/card_wake_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_card"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_power"
+                        android:tint="@color/primary"
+                        android:layout_marginEnd="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_power_card_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Controle de Energia"
+                            android:textColor="@color/textWhite"
+                            android:textStyle="bold"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/txt_power_card_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Toque para desligar a TV"
+                            android:textColor="@color/textMuted"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_wake_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="DESLIGAR TV"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        app:backgroundTint="@color/primary"
+                        android:background="@drawable/shape_rounded_button" />
+                </LinearLayout>
+
+                <!-- Active App / Status Pill -->
+                <TextView
+                    android:id="@+id/txt_current_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_status_badge"
+                    android:padding="10dp"
+                    android:text="TV Conectada"
+                    android:textColor="@color/textWhite"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="14dp"
+                    android:visibility="gone" />
+
+                <!-- Navigation Bar: HOME, BACK, MENU, EXIT -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="12dp">
+
+                    <Button
+                        android:id="@+id/btn_home"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="HOME"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_back"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="VOLTAR"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_menu"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="MENU"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_exit"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="SAIR"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+                </LinearLayout>
+
+                <!-- Quick Streaming Apps: NETFLIX, YOUTUBE, HBO MAX, PRIME -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btn_quick_netflix"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="NETFLIX"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#E50914"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <Button
+                        android:id="@+id/btn_quick_youtube"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="YOUTUBE"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#FF2222"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <Button
+                        android:id="@+id/btn_quick_hbomax"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="HBO MAX"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#A259FF"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <Button
+                        android:id="@+id/btn_quick_prime"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="3dp"
+                        android:text="PRIME"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#00A8E1"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+                </LinearLayout>
+
+                <!-- Modern Circular D-Pad Controller -->
+                <RelativeLayout
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:background="@drawable/shape_dpad_ring"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- UP Button -->
+                    <Button
+                        android:id="@+id/btn_up"
+                        android:layout_width="72dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:drawableTop="@drawable/ic_arrow_up"
+                        android:paddingTop="14dp"
+                        android:tint="@color/textWhite" />
+
+                    <!-- DOWN Button -->
+                    <Button
+                        android:id="@+id/btn_down"
+                        android:layout_width="72dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:drawableBottom="@drawable/ic_arrow_down"
+                        android:paddingBottom="14dp"
+                        android:tint="@color/textWhite" />
+
+                    <!-- LEFT Button -->
+                    <Button
+                        android:id="@+id/btn_left"
+                        android:layout_width="64dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:drawableLeft="@drawable/ic_arrow_left"
+                        android:paddingStart="14dp"
+                        android:tint="@color/textWhite" />
+
+                    <!-- RIGHT Button -->
+                    <Button
+                        android:id="@+id/btn_right"
+                        android:layout_width="64dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:drawableRight="@drawable/ic_arrow_right"
+                        android:paddingEnd="14dp"
+                        android:tint="@color/textWhite" />
+
+                    <!-- OK / Center Select Button -->
+                    <Button
+                        android:id="@+id/btn_ok"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerInParent="true"
+                        android:text="OK"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_dpad_ok"
+                        android:elevation="6dp" />
+                </RelativeLayout>
+
+                <!-- Quick Volume & Channel Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Volume Down -->
+                    <Button
+                        android:id="@+id/btn_quick_vol_down"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="VOL −"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <!-- Mute -->
+                    <Button
+                        android:id="@+id/btn_quick_mute"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="MUTE"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <!-- Volume Up -->
+                    <Button
+                        android:id="@+id/btn_quick_vol_up"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="VOL +"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <!-- Channel Down -->
+                    <Button
+                        android:id="@+id/btn_ch_down"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:text="CH −"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+
+                    <!-- Channel Up -->
+                    <Button
+                        android:id="@+id/btn_ch_up"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="CH +"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCard" />
+                </LinearLayout>
+
+                <!-- Touchpad Card (Magic Pointer) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_touchpad"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Touchpad Magic Pointer"
+                        android:textColor="@color/textSecondary"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="2dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deslize para mover o cursor • Toque para clicar"
+                        android:textColor="@color/textMuted"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="8dp" />
+
+                    <View
+                        android:id="@+id/view_touchpad"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:background="@drawable/shape_card" />
+                </LinearLayout>
+
+                <!-- Media Controls: Rewind, Play, Pause, Stop, Fast Forward -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btn_rewind"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:drawableTop="@drawable/ic_rewind"
+                        android:paddingTop="9dp"
+                        android:tint="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_play"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:drawableTop="@drawable/ic_play"
+                        android:paddingTop="9dp"
+                        android:tint="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_pause"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:drawableTop="@drawable/ic_pause"
+                        android:paddingTop="9dp"
+                        android:tint="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_stop"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:drawableTop="@drawable/ic_stop"
+                        android:paddingTop="9dp"
+                        android:tint="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+
+                    <Button
+                        android:id="@+id/btn_forward"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:drawableTop="@drawable/ic_fast_forward"
+                        android:paddingTop="9dp"
+                        android:tint="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight" />
+                </LinearLayout>
+
+                <!-- Modern Virtual Keyboard Input -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/shape_input_box"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
+
+                    <EditText
+                        android:id="@+id/edit_text_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Digitar texto para a TV..."
+                        android:textColor="@color/textWhite"
+                        android:textColorHint="@color/textMuted"
+                        android:background="@null"
+                        android:textSize="14sp"
+                        android:singleLine="true"
+                        android:imeOptions="actionSend" />
+
+                    <Button
+                        android:id="@+id/btn_send_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="ENVIAR"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/primary"
+                        android:layout_marginStart="6dp" />
+
+                    <Button
+                        android:id="@+id/btn_enter_key"
+                        android:layout_width="44dp"
+                        android:layout_height="38dp"
+                        android:text="↵"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textWhite"
+                        android:background="@drawable/shape_rounded_button"
+                        app:backgroundTint="@color/surfaceCardLight"
+                        android:layout_marginStart="4dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: AUDIO                                   -->
+        <!-- ============================================== -->
+        <LinearLayout
+            android:id="@+id/tab_audio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txt_volume_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@color/textWhite"
+                android:textSize="64sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_audio_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volume do Alto-falante da TV"
+                android:textColor="@color/textSecondary"
+                android:textSize="14sp"
+                android:layout_marginBottom="28dp" />
+
+            <SeekBar
+                android:id="@+id/seek_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="20"
+                android:progressTint="@color/primary"
+                android:thumbTint="@color/primary"
+                android:layout_marginBottom="36dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_vol_down"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:text="−"
+                    android:textSize="28sp"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/surfaceCardLight"
+                    android:layout_marginEnd="16dp" />
+
+                <Button
+                    android:id="@+id/btn_mute"
+                    android:layout_width="100dp"
+                    android:layout_height="68dp"
+                    android:text="MUDO"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/surfaceCardLight" />
+
+                <Button
+                    android:id="@+id/btn_vol_up"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:text="+"
+                    android:textSize="28sp"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/surfaceCardLight"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: APPS                                    -->
+        <!-- ============================================== -->
+        <LinearLayout
+            android:id="@+id/tab_apps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/edit_search_apps"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Pesquisar aplicativos instalados..."
+                android:textColor="@color/textWhite"
+                android:textColorHint="@color/textMuted"
+                android:background="@drawable/shape_input_box"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:textSize="14sp"
+                android:layout_marginBottom="12dp" />
+
+            <ListView
+                android:id="@+id/list_apps"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@color/surfaceDark"
+                android:dividerHeight="1dp" />
+        </LinearLayout>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: INPUTS                                  -->
+        <!-- ============================================== -->
+        <LinearLayout
+            android:id="@+id/tab_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entradas Externas (HDMI / TV)"
+                android:textColor="@color/textWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <ListView
+                android:id="@+id/list_inputs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@color/surfaceDark"
+                android:dividerHeight="1dp" />
+        </LinearLayout>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: PICTURE                                 -->
+        <!-- ============================================== -->
+        <ScrollView
+            android:id="@+id/tab_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ajustes de Imagem da TV"
+                    android:textColor="@color/textWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Backlight -->
+                <TextView
+                    android:id="@+id/txt_lbl_backlight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Luz de Fundo (Backlight): 80"
+                    android:textColor="@color/textWhite" />
+                <SeekBar
+                    android:id="@+id/seek_backlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="80"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- Brightness -->
+                <TextView
+                    android:id="@+id/txt_lbl_brightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Brilho: 50"
+                    android:textColor="@color/textWhite" />
+                <SeekBar
+                    android:id="@+id/seek_brightness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- Contrast -->
+                <TextView
+                    android:id="@+id/txt_lbl_contrast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contraste: 80"
+                    android:textColor="@color/textWhite" />
+                <SeekBar
+                    android:id="@+id/seek_contrast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="80"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- Color -->
+                <TextView
+                    android:id="@+id/txt_lbl_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cor: 50"
+                    android:textColor="@color/textWhite" />
+                <SeekBar
+                    android:id="@+id/seek_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressTint="@color/primary"
+                    android:thumbTint="@color/primary"
+                    android:layout_marginBottom="24dp" />
+
+                <Button
+                    android:id="@+id/btn_apply_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Aplicar Ajustes na TV"
+                    android:textStyle="bold"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/primary" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- ============================================== -->
+        <!-- TAB 6: SETTINGS                                -->
+        <!-- ============================================== -->
+        <ScrollView
+            android:id="@+id/tab_settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descoberta e Configuração da TV"
+                    android:textColor="@color/textWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="14dp" />
+
+                <Button
+                    android:id="@+id/btn_discover"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Buscar TVs LG na Rede Wi-Fi"
+                    android:textStyle="bold"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/primary"
+                    android:layout_marginBottom="10dp" />
+
+                <ListView
+                    android:id="@+id/list_devices"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/shape_card"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Configuração Manual"
+                    android:textColor="@color/textWhite"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/edit_ip"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:hint="IPv4 da TV (ex: 192.168.1.100)"
+                    android:textColor="@color/textWhite"
+                    android:textColorHint="@color/textMuted"
+                    android:background="@drawable/shape_input_box"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:hint="Nome de Exibição"
+                    android:textColor="@color/textWhite"
+                    android:textColorHint="@color/textMuted"
+                    android:background="@drawable/shape_input_box"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/edit_mac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_save_connect"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Salvar e Conectar"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/textWhite"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/primary"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp" />
+
+                <Button
+                    android:id="@+id/btn_forget"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:text="Reparear TV (Esquecer Chave)"
+                    android:textStyle="bold"
+                    android:textColor="#FF5252"
+                    android:background="@drawable/shape_rounded_button"
+                    app:backgroundTint="@color/surfaceCard" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surfaceDark"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
+
+</LinearLayout>

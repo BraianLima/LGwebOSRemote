@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_remote"
+        android:icon="@drawable/ic_nav_remote"
+        android:title="Controle" />
+    <item
+        android:id="@+id/nav_audio"
+        android:icon="@drawable/ic_nav_audio"
+        android:title="Áudio" />
+    <item
+        android:id="@+id/nav_apps"
+        android:icon="@drawable/ic_nav_apps"
+        android:title="Apps" />
+    <item
+        android:id="@+id/nav_inputs"
+        android:icon="@drawable/ic_nav_inputs"
+        android:title="Entradas" />
+    <item
+        android:id="@+id/nav_picture"
+        android:icon="@drawable/ic_nav_picture"
+        android:title="Imagem" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_nav_settings"
+        android:title="Ajustes" />
+</menu>

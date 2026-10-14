@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#E82C59</color>
+    <color name="primaryDark">#B51B40</color>
+    <color name="primaryGlow">#33E82C59</color>
+    <color name="accent">#E82C59</color>
+    <color name="bgDark">#0D0F12</color>
+    <color name="surfaceDark">#15181C</color>
+    <color name="surfaceCard">#1E2228</color>
+    <color name="surfaceCardLight">#282D36</color>
+    <color name="surfacePressed">#353B47</color>
+    <color name="textWhite">#FFFFFF</color>
+    <color name="textSecondary">#B0B6C2</color>
+    <color name="textMuted">#6E7684</color>
+    <color name="statusGreen">#00E676</color>
+    <color name="statusRed">#FF5252</color>
+    <color name="statusAmber">#FFC107</color>
+    <color name="dpadRing">#1A1D23</color>
+    <color name="dpadButton">#242932</color>
+</resources>
